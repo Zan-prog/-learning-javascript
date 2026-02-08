@@ -1,36 +1,63 @@
 // File: script.js
-// Simple calculator using JavaScript
+// Simple calculator with validation
 // Technical IT course - IFSul Passo Fundo
 
 function getNumbers() {
-  let n1 = Number(document.getElementById("num1").value);
-  let n2 = Number(document.getElementById("num2").value);
+  let n1 = document.getElementById("num1").value;
+  let n2 = document.getElementById("num2").value;
+
+  if (n1 === "" || n2 === "") {
+    showResult("Please enter both numbers");
+    return null;
+  }
+
+  n1 = Number(n1);
+  n2 = Number(n2);
+
+  if (isNaN(n1) || isNaN(n2)) {
+    showResult("Invalid number");
+    return null;
+  }
+
   return [n1, n2];
 }
 
 function add() {
-  const [n1, n2] = getNumbers();
+  const numbers = getNumbers();
+  if (!numbers) return;
+
+  const [n1, n2] = numbers;
   showResult(n1 + n2);
 }
 
 function subtract() {
-  const [n1, n2] = getNumbers();
+  const numbers = getNumbers();
+  if (!numbers) return;
+
+  const [n1, n2] = numbers;
   showResult(n1 - n2);
 }
 
 function multiply() {
-  const [n1, n2] = getNumbers();
+  const numbers = getNumbers();
+  if (!numbers) return;
+
+  const [n1, n2] = numbers;
   showResult(n1 * n2);
 }
 
 function divide() {
-  const [n1, n2] = getNumbers();
+  const numbers = getNumbers();
+  if (!numbers) return;
+
+  const [n1, n2] = numbers;
 
   if (n2 === 0) {
     showResult("Cannot divide by zero");
-  } else {
-    showResult(n1 / n2);
+    return;
   }
+
+  showResult(n1 / n2);
 }
 
 function showResult(value) {
