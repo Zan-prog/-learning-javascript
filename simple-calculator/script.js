@@ -1,6 +1,8 @@
 // File: script.js
-// Simple calculator with validation
+// Simple calculator with validation and history
 // Technical IT course - IFSul Passo Fundo
+
+let history = [];
 
 function getNumbers() {
   let n1 = document.getElementById("num1").value;
@@ -27,7 +29,10 @@ function add() {
   if (!numbers) return;
 
   const [n1, n2] = numbers;
-  showResult(n1 + n2);
+  const result = n1 + n2;
+
+  addToHistory(`${n1} + ${n2} = ${result}`);
+  showResult(result);
 }
 
 function subtract() {
@@ -35,7 +40,10 @@ function subtract() {
   if (!numbers) return;
 
   const [n1, n2] = numbers;
-  showResult(n1 - n2);
+  const result = n1 - n2;
+
+  addToHistory(`${n1} - ${n2} = ${result}`);
+  showResult(result);
 }
 
 function multiply() {
@@ -43,7 +51,10 @@ function multiply() {
   if (!numbers) return;
 
   const [n1, n2] = numbers;
-  showResult(n1 * n2);
+  const result = n1 * n2;
+
+  addToHistory(`${n1} × ${n2} = ${result}`);
+  showResult(result);
 }
 
 function divide() {
@@ -57,7 +68,26 @@ function divide() {
     return;
   }
 
-  showResult(n1 / n2);
+  const result = n1 / n2;
+
+  addToHistory(`${n1} ÷ ${n2} = ${result}`);
+  showResult(result);
+}
+
+function addToHistory(entry) {
+  history.push(entry);
+  renderHistory();
+}
+
+function renderHistory() {
+  const historyList = document.getElementById("history");
+  historyList.innerHTML = "";
+
+  for (let item of history) {
+    const li = document.createElement("li");
+    li.innerText = item;
+    historyList.appendChild(li);
+  }
 }
 
 function showResult(value) {
